@@ -3,129 +3,70 @@
 import { useEffect, useState } from 'react';
 
 interface OnboardingScreenProps {
-  step: 1 | 2 | 3;
-  onNext: () => void;
+  step: 1 | 2 | 3 | 4;
 }
 
-export default function OnboardingScreen({ step, onNext }: OnboardingScreenProps) {
+export default function OnboardingScreen({ step }: OnboardingScreenProps) {
   const [isVisible, setIsVisible] = useState(false);
+  const [bgTransition, setBgTransition] = useState(false);
 
+  // 배경 전환 시작 (0.5초 대기 후, 2초 동안 전환)
+  useEffect(() => {
+    const timer = setTimeout(() => setBgTransition(true), 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // 텍스트 페이드인/아웃 (1.8초 간격에 맞춤)
   useEffect(() => {
     setIsVisible(false);
-    const timer = setTimeout(() => setIsVisible(true), 50);
-    return () => clearTimeout(timer);
+    const fadeIn = setTimeout(() => setIsVisible(true), 50);
+    const fadeOut = setTimeout(() => setIsVisible(false), 1400);
+
+    return () => {
+      clearTimeout(fadeIn);
+      clearTimeout(fadeOut);
+    };
   }, [step]);
 
-  // Step 1: 일러스트만 (텍스트 없음)
-  if (step === 1) {
-    return (
-      <div
-        className="relative min-h-dvh w-full overflow-hidden cursor-pointer"
-        onClick={onNext}
-      >
-        {/* 전체 화면 일러스트 배경 */}
-        <div className="absolute inset-0 bg-black">
-          <img
-            src="/images/splash01-full.png"
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-        </div>
-      </div>
-    );
-  }
+  return (
+    <div className="relative min-h-dvh w-full overflow-hidden bg-black">
+      {/* 배경 1: 1-Splash01.svg */}
+      <img
+        src="/images/background/1-Splash01.svg"
+        alt=""
+        className="absolute top-1/2 left-0 w-full h-auto -translate-y-1/2 transition-opacity duration-[2000ms]"
+        style={{ opacity: bgTransition ? 0 : 1 }}
+      />
 
-  // Step 2: 길을 잃었나요? (chips at bottom)
-  if (step === 2) {
-    return (
-      <div
-        className="relative min-h-dvh w-full overflow-hidden cursor-pointer"
-        onClick={onNext}
-      >
-        {/* 별 배경 */}
-        <div className="absolute inset-0 bg-black">
-          <img
-            src="/images/bg-stars.png"
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover opacity-50"
-          />
-        </div>
+      {/* 배경 2: 2-Splash02.svg */}
+      <img
+        src="/images/background/2-Splash02.svg"
+        alt=""
+        className="absolute top-1/2 left-0 w-full h-auto -translate-y-1/2 transition-opacity duration-[2000ms]"
+        style={{ opacity: bgTransition ? 1 : 0 }}
+      />
 
-        {/* 중앙 타이틀 */}
+      {/* 텍스트 (step 2, 3, 4에서만) */}
+      {step >= 2 && (
         <div
-          className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-500 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}
+          className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2"
+          style={{ top: '50%' }}
         >
           <h1
-            className="text-[24px] font-bold text-white text-center whitespace-nowrap leading-[1.5] tracking-[-0.55px]"
-            style={{ fontFamily: "'Pretendard Variable', sans-serif" }}
+            className="text-white text-center whitespace-pre font-bold transition-opacity duration-300"
+            style={{
+              fontSize: '32px',
+              lineHeight: 1.375,
+              letterSpacing: '-0.8px',
+              opacity: isVisible ? 1 : 0,
+            }}
           >
-            길을 잃었나요?
+            {step === 2 && '혹시\n길을 잃어버렸나요?'}
+            {step === 3 && '걱정하지말아요'}
+            {step === 4 && '요정들이\n도와줄게요'}
           </h1>
         </div>
-
-        {/* 칩들 - 하단에 배치 */}
-        <div
-          className={`absolute bottom-[100px] left-[20px] right-[20px] flex flex-wrap gap-[8px] justify-center transition-all duration-500 ${
-            isVisible ? 'opacity-100' : 'opacity-0'
-          }`}
-          style={{ transitionDelay: '0.2s' }}
-        >
-          {['나만 뒤쳐지나봐.', '꿈이 없어.', '뭘하고 싶은지 모르겠어.'].map((chip, index) => (
-            <div
-              key={index}
-              className="px-[12px] py-[8px] rounded-[8px]"
-              style={{
-                backgroundColor: 'rgba(112, 115, 124, 0.2)',
-              }}
-            >
-              <span
-                className="text-[14px] font-medium whitespace-nowrap leading-[1.429] tracking-[0.2px]"
-                style={{
-                  color: 'rgba(255, 255, 255, 0.5)',
-                  fontFamily: "'Pretendard Variable', sans-serif",
-                }}
-              >
-                {chip}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  // Step 3: 요정들이 도와줄게요
-  return (
-    <div
-      className="relative min-h-dvh w-full overflow-hidden cursor-pointer"
-      onClick={onNext}
-    >
-      {/* 별 배경 */}
-      <div className="absolute inset-0 bg-black">
-        <img
-          src="/images/bg-stars.png"
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover opacity-50"
-        />
-      </div>
-
-      {/* 중앙 타이틀 */}
-      <div
-        className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-500 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-        }`}
-      >
-        <h1
-          className="text-[24px] font-bold text-white text-center whitespace-pre-line leading-[1.5] tracking-[-0.55px]"
-          style={{ fontFamily: "'Pretendard Variable', sans-serif" }}
-        >
-          요정들이
-          <br />
-          도와줄게요
-        </h1>
-      </div>
+      )}
     </div>
   );
 }

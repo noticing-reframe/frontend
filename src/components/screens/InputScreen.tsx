@@ -8,6 +8,7 @@ interface InputScreenProps {
 
 export default function InputScreen({ onSubmit }: InputScreenProps) {
   const [concern, setConcern] = useState('');
+  const [isFocused, setIsFocused] = useState(false);
   const maxLength = 2000;
 
   const handleSubmit = () => {
@@ -17,16 +18,13 @@ export default function InputScreen({ onSubmit }: InputScreenProps) {
   };
 
   return (
-    <div className="relative w-full min-h-dvh bg-black">
-      {/* 배경 이미지 + 90% 검정 오버레이 */}
-      <div className="absolute inset-0">
-        <img
-          src="/images/bg-stars.png"
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/90" />
-      </div>
+    <div className="relative w-full min-h-dvh overflow-hidden bg-black">
+      {/* 배경 이미지 - 온보딩과 동일 */}
+      <img
+        src="/images/background/2-Splash02.svg"
+        alt=""
+        className="absolute top-1/2 left-0 w-full h-auto -translate-y-1/2"
+      />
 
       {/* Top Navigation - Status Safe Area (44px) */}
       <div className="relative z-10 h-11 w-full" />
@@ -85,8 +83,10 @@ export default function InputScreen({ onSubmit }: InputScreenProps) {
                 <textarea
                   value={concern}
                   onChange={(e) => setConcern(e.target.value.slice(0, maxLength))}
-                  placeholder="고민 예시 플레이스 홀더 작성 부탁"
-                  className="w-full h-full bg-transparent resize-none text-white/60 placeholder:text-white/40"
+                  onFocus={() => setIsFocused(true)}
+                  onBlur={() => setIsFocused(false)}
+                  placeholder="요즘 어떤 고민이 있으신가요?"
+                  className="w-full h-full bg-transparent resize-none text-white placeholder:text-white/30 overflow-y-auto"
                   style={{
                     fontSize: '16px',
                     lineHeight: 1.625,
@@ -117,12 +117,16 @@ export default function InputScreen({ onSubmit }: InputScreenProps) {
             </div>
           </div>
 
-          {/* Border */}
+          {/* Border - 포커스시 강조 */}
           <div
-            className="absolute inset-0 pointer-events-none"
+            className="absolute inset-0 pointer-events-none transition-all"
             style={{
-              border: '1px solid rgba(112, 115, 124, 0.16)',
-              boxShadow: '0px 1px 2px -1px rgba(23, 23, 23, 0.1)',
+              border: isFocused
+                ? '1px solid rgba(88, 207, 4, 0.5)'
+                : '1px solid rgba(112, 115, 124, 0.16)',
+              boxShadow: isFocused
+                ? '0px 0px 0px 2px rgba(88, 207, 4, 0.2)'
+                : '0px 1px 2px -1px rgba(23, 23, 23, 0.1)',
               borderRadius: '12px',
             }}
           />
@@ -135,9 +139,9 @@ export default function InputScreen({ onSubmit }: InputScreenProps) {
           <button
             onClick={handleSubmit}
             disabled={!concern.trim()}
-            className="w-full flex items-center justify-center transition-opacity disabled:opacity-50"
+            className="w-full flex items-center justify-center transition-all"
             style={{
-              backgroundColor: '#58CF04',
+              backgroundColor: concern.trim() ? '#58CF04' : '#F4F4F5',
               padding: '12px 28px',
               borderRadius: '12px',
             }}
@@ -148,7 +152,7 @@ export default function InputScreen({ onSubmit }: InputScreenProps) {
                 fontSize: '16px',
                 lineHeight: 1.5,
                 letterSpacing: '0.09px',
-                color: '#F7F7F8',
+                color: concern.trim() ? '#F7F7F8' : 'rgba(55, 56, 60, 0.28)',
               }}
             >
               고민 보내기

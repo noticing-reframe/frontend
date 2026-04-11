@@ -1,43 +1,49 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 interface LoadingScreenProps {
   onComplete: () => void;
 }
 
 export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
+  const [glowVisible, setGlowVisible] = useState(false);
+
   useEffect(() => {
-    // 3초 후 완료
-    const timer = setTimeout(() => {
-      onComplete();
-    }, 3000);
+    // 빛나는 애니메이션 - 1초 간격으로 반복
+    const glowInterval = setInterval(() => {
+      setGlowVisible((prev) => !prev);
+    }, 1000);
 
     return () => {
-      clearTimeout(timer);
+      clearInterval(glowInterval);
     };
-  }, [onComplete]);
+  }, []);
 
   return (
     <div className="relative flex flex-col min-h-dvh bg-black overflow-hidden">
-      {/* 배경 일러스트 이미지 - 흔들리는 애니메이션 */}
-      <div className="absolute inset-0">
-        <div className="animate-bottle-swing w-full h-full">
-          <img
-            src="/images/loading-hand.png"
-            alt=""
-            className="w-full h-full object-cover"
-          />
-        </div>
-      </div>
+      {/* 베이스 이미지 - 7-Loading.svg */}
+      <img
+        src="/images/background/7-Loading.svg"
+        alt=""
+        className="absolute top-1/2 left-0 w-full h-auto -translate-y-1/2"
+      />
+
+      {/* 빛나는 오버레이 - 8-Loading.svg (페이드 인/아웃) */}
+      <img
+        src="/images/background/8-Loading.svg"
+        alt=""
+        className="absolute top-1/2 left-0 w-full h-auto -translate-y-1/2 transition-opacity duration-700"
+        style={{ opacity: glowVisible ? 1 : 0 }}
+      />
 
       {/* Status Safe Area - 44px */}
       <div className="relative z-10 w-full" style={{ height: '44px' }} />
 
-      {/* 로딩 텍스트 - 좌상단 (top: 108px = 44px + 64px) */}
+      {/* 로딩 텍스트 - 좌상단 */}
       <div
-        className="relative z-10 animate-fade-in"
-        style={{ padding: '64px 5.33% 0 5.33%' }}
+        className="relative z-10"
+        style={{ padding: '10px 5.33% 0 5.33%' }}
       >
         <h1
           className="font-bold text-white m-0"
