@@ -122,22 +122,11 @@ export default function ChatScreen({
                       backgroundColor: 'white',
                     }}
                   >
-                    {character.profileImage ? (
                       <img
-                        src={character.profileImage}
-                        alt={character.name}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div
-                        className="w-full h-full flex items-center justify-center"
-                        style={{
-                          background: 'linear-gradient(135deg, rgba(107, 224, 22, 0.3), rgba(107, 224, 22, 0.1))',
-                        }}
-                      >
-                        <span style={{ fontSize: '14px' }}>🧚</span>
-                      </div>
-                    )}
+                      src={`/images/character/${character.profile_image}.png`}
+                      alt={character.character_name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
 
                   {/* 메시지 콘텐츠 */}
@@ -151,7 +140,7 @@ export default function ChatScreen({
                         color: 'rgba(194, 196, 200, 0.88)',
                       }}
                     >
-                      {character.shortDescription}
+                      {character.character_tagline}
                     </p>
 
                     {/* 메시지 버블 */}
@@ -164,16 +153,32 @@ export default function ChatScreen({
                         WebkitBackdropFilter: 'blur(32px)',
                       }}
                     >
-                      <p
-                        style={{
-                          fontSize: '14px',
-                          lineHeight: 1.571,
-                          letterSpacing: '0.2px',
-                          color: '#f7f7f8',
-                        }}
-                      >
-                        {message.content}
-                      </p>
+                      {/* 로딩 중이고 content가 비어있으면 로딩 dots 표시 */}
+                      {isLoading && !message.content ? (
+                        <div className="flex gap-[4px]">
+                          {[0, 1, 2].map((i) => (
+                            <div
+                              key={i}
+                              className="w-[6px] h-[6px] rounded-full animate-pulse"
+                              style={{
+                                backgroundColor: '#58CF04',
+                                animationDelay: `${i * 0.2}s`,
+                              }}
+                            />
+                          ))}
+                        </div>
+                      ) : (
+                        <p
+                          style={{
+                            fontSize: '14px',
+                            lineHeight: 1.571,
+                            letterSpacing: '0.2px',
+                            color: '#f7f7f8',
+                          }}
+                        >
+                          {message.content}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -240,79 +245,6 @@ export default function ChatScreen({
               )}
             </div>
           ))}
-
-          {/* 로딩 인디케이터 */}
-          {isLoading && (
-            <div className="flex gap-[4px] items-start" style={{ marginBottom: '20px' }}>
-              {/* 프로필 이미지 */}
-              <div
-                className="flex-shrink-0 overflow-hidden"
-                style={{
-                  width: '32px',
-                  height: '32px',
-                  borderRadius: '96px',
-                  border: '1px solid rgba(107, 224, 22, 0.16)',
-                  backgroundColor: 'white',
-                }}
-              >
-                {character.profileImage ? (
-                  <img
-                    src={character.profileImage}
-                    alt={character.name}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div
-                    className="w-full h-full flex items-center justify-center"
-                    style={{
-                      background: 'linear-gradient(135deg, rgba(107, 224, 22, 0.3), rgba(107, 224, 22, 0.1))',
-                    }}
-                  >
-                    <span style={{ fontSize: '14px' }}>🧚</span>
-                  </div>
-                )}
-              </div>
-
-              {/* 메시지 콘텐츠 */}
-              <div className="flex-1 flex flex-col gap-[4px]">
-                <p
-                  style={{
-                    fontSize: '12px',
-                    lineHeight: 1.334,
-                    letterSpacing: '0.3px',
-                    color: 'rgba(194, 196, 200, 0.88)',
-                  }}
-                >
-                  {character.shortDescription}
-                </p>
-
-                {/* 로딩 버블 */}
-                <div
-                  className="inline-flex"
-                  style={{
-                    padding: '12px 20px',
-                    borderRadius: '0 12px 12px 12px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                    backdropFilter: 'blur(32px)',
-                    WebkitBackdropFilter: 'blur(32px)',
-                  }}
-                >
-                  <div className="flex gap-[4px]">
-                    {[0, 1, 2].map((i) => (
-                      <div
-                        key={i}
-                        className="w-[6px] h-[6px] rounded-full animate-pulse"
-                        style={{
-                          backgroundColor: '#58CF04',
-                          animationDelay: `${i * 0.2}s`,
-                        }}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
 
           <div ref={messagesEndRef} />
         </div>

@@ -1,4 +1,4 @@
-// 화면 상태 - SPLASH 제거, ONBOARDING으로 시작
+// 화면 상태
 export type Screen =
   | 'ONBOARDING_1'
   | 'ONBOARDING_2'
@@ -9,19 +9,15 @@ export type Screen =
   | 'CHARACTER_DETAIL'
   | 'CHAT';
 
-// 캐릭터 타입
-export type CharacterType = '역사적 인물' | '비슷한 경험자' | '유명인' | '정치인';
-
-// 캐릭터 인터페이스
+// 캐릭터 인터페이스 (백엔드 CharacterMatch와 동일)
 export interface Character {
-  id: string;
-  name: string;
-  type: CharacterType;
-  profileImage: string;
-  shortDescription: string;
-  fullDescription: string;
-  wantToTalk: string;
-  lifeStory: string;
+  character_id: string;
+  character_name: string;
+  character_tagline: string;
+  character_background: string;
+  reason: string;
+  conversation_hint: string;
+  profile_image: number;
 }
 
 // 채팅 메시지 인터페이스
@@ -32,6 +28,12 @@ export interface ChatMessage {
   timestamp: Date;
 }
 
+// API용 채팅 메시지
+export interface ApiChatMessage {
+  role: 'user' | 'person';
+  text: string;
+}
+
 // 앱 상태 인터페이스
 export interface AppState {
   currentScreen: Screen;
@@ -40,11 +42,4 @@ export interface AppState {
   characters: Character[];
   messages: ChatMessage[];
   isLoading: boolean;
-}
-
-// 칩 인터페이스
-export interface Chip {
-  id: string;
-  label: string;
-  isActive?: boolean;
 }

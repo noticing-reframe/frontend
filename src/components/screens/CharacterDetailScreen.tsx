@@ -59,22 +59,11 @@ export default function CharacterDetailScreen({
                 borderRadius: '12px',
               }}
             >
-              {character.profileImage ? (
-                <img
-                  src={character.profileImage}
-                  alt={character.name}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <div
-                  className="w-full h-full flex items-center justify-center"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(88, 207, 4, 0.3), rgba(88, 207, 4, 0.1))',
-                  }}
-                >
-                  <span style={{ fontSize: '80px' }}>🧚</span>
-                </div>
-              )}
+              <img
+                src={`/images/character/${character.profile_image}.png`}
+                alt={character.character_name}
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
 
@@ -90,7 +79,7 @@ export default function CharacterDetailScreen({
                 marginBottom: '8px',
               }}
             >
-              {character.name}
+              {character.character_name}
             </h1>
 
             {/* 짧은 설명 - 18px Regular, #f7f7f8 */}
@@ -103,25 +92,8 @@ export default function CharacterDetailScreen({
                 marginBottom: '8px',
               }}
             >
-              {character.shortDescription}
+              {character.character_tagline}
             </p>
-
-            {/* 타입 뱃지 */}
-            <span
-              className="inline-block"
-              style={{
-                padding: '3px 6px',
-                borderRadius: '6px',
-                fontSize: '12px',
-                fontWeight: 500,
-                lineHeight: 1.333,
-                letterSpacing: '0.34px',
-                backgroundColor: 'rgba(112, 115, 124, 0.22)',
-                color: 'rgba(174, 176, 182, 0.61)',
-              }}
-            >
-              {character.type}
-            </span>
           </div>
 
           {/* 구분선 */}
@@ -185,7 +157,7 @@ export default function CharacterDetailScreen({
                   padding: '24px 0 0 0',
                 }}
               >
-                {character.wantToTalk}
+                {character.conversation_hint}
               </p>
             </div>
           </div>
@@ -232,7 +204,7 @@ export default function CharacterDetailScreen({
                   color: 'rgba(194, 196, 200, 0.88)',
                 }}
               >
-                {character.lifeStory}
+                {character.character_background}
               </p>
             </div>
           </div>
