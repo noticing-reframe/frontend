@@ -29,7 +29,7 @@ export default function LoadingPage() {
   }, [router]);
 
   const handleComplete = () => {
-    router.push('/characters');
+    router.replace('/characters');
   };
 
   // 매칭 완료되면 자동으로 넘어감
