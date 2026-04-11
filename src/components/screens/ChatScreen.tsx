@@ -35,6 +35,9 @@ export default function ChatScreen({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    // 한글 IME 조합 중에는 무시
+    if (e.nativeEvent.isComposing) return;
+
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSend();
