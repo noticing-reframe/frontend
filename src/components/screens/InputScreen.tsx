@@ -75,7 +75,7 @@ export default function InputScreen({ onSubmit }: InputScreenProps) {
           {/* Input Container */}
           <div
             className="relative flex flex-1 flex-col overflow-hidden"
-            style={{ padding: '12px', gap: '12px', borderRadius: '12px' }}
+            style={{ padding: '12px', gap: '10px', borderRadius: '12px' }}
           >
             {/* Textarea */}
             <div className="flex flex-1 items-start overflow-hidden">
@@ -141,7 +141,7 @@ export default function InputScreen({ onSubmit }: InputScreenProps) {
             disabled={!concern.trim()}
             className="w-full flex items-center justify-center transition-all"
             style={{
-              backgroundColor: concern.trim() ? '#58CF04' : '#F4F4F5',
+              backgroundColor: concern.trim() ? '#58CF04' : '#2E2F33',
               padding: '12px 28px',
               borderRadius: '12px',
             }}
@@ -152,7 +152,7 @@ export default function InputScreen({ onSubmit }: InputScreenProps) {
                 fontSize: '16px',
                 lineHeight: 1.5,
                 letterSpacing: '0.09px',
-                color: concern.trim() ? '#F7F7F8' : 'rgba(55, 56, 60, 0.28)',
+                color: concern.trim() ? '#F7F7F8' : 'rgba(255, 255, 255, 0.28)',
               }}
             >
               고민 보내기
