@@ -60,7 +60,7 @@ export default function CharacterDetailScreen({
               }}
             >
               <img
-                src={`/images/character/${character.profile_image}.png`}
+                src={`/images/character/${character.profile_image}.jpg`}
                 alt={character.character_name}
                 className="w-full h-full object-cover"
               />
