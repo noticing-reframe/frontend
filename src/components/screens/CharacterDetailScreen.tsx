@@ -18,42 +18,52 @@ export default function CharacterDetailScreen({
       {/* 배경 이미지 + 90% 검정 오버레이 */}
       <div className="absolute inset-0">
         <img
-          src="/images/bg-stars.png"
+          src="/images/background/2-Splash02.svg"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/90" />
       </div>
 
-      {/* Status Safe Area - 44px */}
-      <div className="relative z-10 w-full" style={{ height: '44px' }} />
+      {/* Status Safe Area - 44px (CharacterSelectScreen과 동일) */}
+      <div
+        className="relative z-10 w-full pt-[env(safe-area-inset-top)]"
+        style={{ height: '44px' }}
+      >
+        {/* Back Button */}
+        <button
+          onClick={onBack}
+          className="absolute flex items-center justify-center"
+          style={{
+            left: '12px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            width: '40px',
+            height: '40px',
+          }}
+        >
+          <img
+            src="/images/icons/chevron-left.svg"
+            alt="뒤로가기"
+            style={{
+              width: '40px',
+              height: '40px',
+            }}
+          />
+        </button>
+      </div>
 
       {/* 콘텐츠 */}
       <div className="relative z-10 flex flex-col flex-1">
-        {/* 뒤로가기 버튼 */}
-        <div style={{ padding: '0 5.33%', marginBottom: '16px' }}>
-          <button
-            onClick={onBack}
-            className="flex items-center justify-center"
-            style={{ width: '32px', height: '32px' }}
-          >
-            <img
-              src="/images/icons/chevron-left.svg"
-              alt="뒤로가기"
-              style={{ width: '32px', height: '32px' }}
-            />
-          </button>
-        </div>
-
-        {/* 스크롤 영역 */}
+        {/* 스크롤 영역 - Frame 22: padding: 20px, gap: 24px */}
         <div
-          className="flex-1 overflow-y-auto scrollbar-hide"
-          style={{ padding: '0 5.33% 160px 5.33%' }}
+          className="flex-1 overflow-y-auto scrollbar-hide flex flex-col"
+          style={{ padding: '20px', gap: '24px', paddingBottom: '160px' }}
         >
-          {/* 프로필 이미지 - 정사각형 */}
-          <div className="animate-fade-in" style={{ marginBottom: '24px' }}>
+          {/* 프로필 이미지 - 335px x 335px */}
+          <div className="animate-fade-in">
             <div
-              className="w-full overflow-hidden"
+              className="w-full overflow-hidden relative"
               style={{
                 aspectRatio: '1 / 1',
                 borderRadius: '12px',
@@ -67,141 +77,199 @@ export default function CharacterDetailScreen({
             </div>
           </div>
 
-          {/* 기본 정보 */}
-          <div className="animate-fade-in" style={{ marginBottom: '24px' }}>
-            {/* 이름 - 32px Bold */}
+          {/* Frame 20 - 기본 정보: gap: 8px */}
+          <div
+            className="animate-fade-in flex flex-col"
+            style={{ gap: '8px' }}
+          >
+            {/* 이름 - Title 1/Bold: 32px */}
             <h1
-              className="font-bold text-white"
               style={{
+                fontFamily: "'Pretendard JP', sans-serif",
+                fontWeight: 700,
                 fontSize: '32px',
                 lineHeight: 1.375,
-                letterSpacing: '-0.8px',
-                marginBottom: '8px',
+                letterSpacing: '-0.0253em',
+                color: '#FFFFFF',
+                margin: 0,
               }}
             >
               {character.character_name}
             </h1>
 
-            {/* 짧은 설명 - 18px Regular, #f7f7f8 */}
+            {/* 짧은 설명 - Headline 1/Regular: 18px */}
             <p
               style={{
+                fontFamily: "'Pretendard JP', sans-serif",
+                fontWeight: 400,
                 fontSize: '18px',
                 lineHeight: 1.445,
-                letterSpacing: '-0.004px',
-                color: '#f7f7f8',
-                marginBottom: '8px',
+                letterSpacing: '-0.0002em',
+                color: '#F7F7F8',
+                margin: 0,
               }}
             >
               {character.character_tagline}
             </p>
+
+            {/* Badges - flex wrap for multiple tags */}
+            <div className="flex flex-wrap gap-2 self-start">
+              {character.tags.map((tag, index) => (
+                <div
+                  key={index}
+                  className="relative inline-flex items-center justify-center"
+                  style={{
+                    padding: '4px 6px',
+                    backgroundColor: '#1B1C1E',
+                    borderRadius: '6px',
+                  }}
+                >
+                  {/* Opacity - 라임 그린 오버레이 */}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      backgroundColor: '#6BE016',
+                      opacity: 0.08,
+                      borderRadius: '6px',
+                    }}
+                  />
+                  {/* 텍스트 - Caption 1/Medium: 12px */}
+                  <span
+                    className="relative"
+                    style={{
+                      fontFamily: "'Pretendard JP', sans-serif",
+                      fontWeight: 500,
+                      fontSize: '12px',
+                      lineHeight: 1.334,
+                      letterSpacing: '0.0252em',
+                      color: '#6BE016',
+                    }}
+                  >
+                    {tag}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* 구분선 */}
+          {/* Divider */}
           <div
             style={{
               height: '1px',
               backgroundColor: 'rgba(112, 115, 124, 0.32)',
-              marginBottom: '24px',
             }}
           />
 
-          {/* 당신과 하고 싶은 대화 */}
-          <div className="animate-fade-in-up" style={{ marginBottom: '24px' }}>
+          {/* Frame 26 - 당신과 하고 싶은 대화: gap: 8px */}
+          <div
+            className="animate-fade-in-up flex flex-col"
+            style={{ gap: '8px' }}
+          >
+            {/* Heading 2/Bold: 20px */}
             <h3
-              className="font-semibold"
               style={{
+                fontFamily: "'Pretendard JP', sans-serif",
+                fontWeight: 600,
                 fontSize: '20px',
                 lineHeight: 1.4,
-                letterSpacing: '-0.24px',
-                color: '#f7f7f8',
-                marginBottom: '8px',
+                letterSpacing: '-0.012em',
+                color: '#F7F7F8',
+                margin: 0,
               }}
             >
               당신과 하고 싶은 대화
             </h3>
 
-            <div className="relative">
-              {/* 인용 부호 - 왼쪽 상단 */}
+            {/* Frame 32 - 인용 부호 */}
+            <div
+              className="flex justify-between items-start"
+              style={{ gap: '8px' }}
+            >
+              {/* " 왼쪽 */}
               <img
                 src="/images/icons/quote.svg"
                 alt=""
                 style={{
-                  position: 'absolute',
-                  top: '0',
-                  left: '0',
                   width: '25px',
                   height: '18px',
                 }}
               />
-
-              {/* 인용 부호 - 오른쪽 상단 (180도 회전) */}
+              {/* " 오른쪽 (180도 회전) */}
               <img
                 src="/images/icons/quote.svg"
                 alt=""
                 style={{
-                  position: 'absolute',
-                  top: '0',
-                  right: '0',
                   width: '25px',
                   height: '18px',
                   transform: 'rotate(180deg)',
                 }}
               />
-
-              <p
-                style={{
-                  fontSize: '16px',
-                  lineHeight: 1.625,
-                  letterSpacing: '0.09px',
-                  color: '#f7f7f8',
-                  padding: '24px 0 0 0',
-                }}
-              >
-                {character.conversation_hint}
-              </p>
             </div>
+
+            {/* 대화 힌트 - Body 1/Reading Regular: 16px */}
+            <p
+              style={{
+                fontFamily: "'Pretendard JP', sans-serif",
+                fontWeight: 400,
+                fontSize: '16px',
+                lineHeight: 1.625,
+                letterSpacing: '0.0057em',
+                color: '#F7F7F8',
+                margin: 0,
+              }}
+            >
+              {character.conversation_hint}
+            </p>
           </div>
 
-          {/* 구분선 */}
+          {/* Divider */}
           <div
             style={{
               height: '1px',
               backgroundColor: 'rgba(112, 115, 124, 0.32)',
-              marginBottom: '24px',
             }}
           />
 
-          {/* 요정의 삶 */}
-          <div className="animate-fade-in-up">
+          {/* Frame 25 - 요정의 삶: gap: 14px */}
+          <div
+            className="animate-fade-in-up flex flex-col"
+            style={{ gap: '14px' }}
+          >
+            {/* Heading 2/Bold: 20px */}
             <h3
-              className="font-semibold"
               style={{
+                fontFamily: "'Pretendard JP', sans-serif",
+                fontWeight: 600,
                 fontSize: '20px',
                 lineHeight: 1.4,
-                letterSpacing: '-0.24px',
-                color: '#f7f7f8',
-                marginBottom: '14px',
+                letterSpacing: '-0.012em',
+                color: '#F7F7F8',
+                margin: 0,
               }}
             >
               요정의 삶
             </h3>
 
-            {/* 카드 - backdrop-blur with specific border-radius */}
+            {/* Frame 24 - 카드 */}
             <div
               style={{
                 padding: '20px',
-                borderRadius: '0 12px 12px 12px',
+                borderRadius: '0px 12px 12px 12px',
                 backgroundColor: 'rgba(33, 34, 37, 0.61)',
                 backdropFilter: 'blur(32px)',
                 WebkitBackdropFilter: 'blur(32px)',
               }}
             >
+              {/* Body 1/Normal Regular: 16px */}
               <p
                 style={{
+                  fontFamily: "'Pretendard JP', sans-serif",
+                  fontWeight: 400,
                   fontSize: '16px',
                   lineHeight: 1.5,
-                  letterSpacing: '0.09px',
+                  letterSpacing: '0.0057em',
                   color: 'rgba(194, 196, 200, 0.88)',
+                  margin: 0,
                 }}
               >
                 {character.character_background}
@@ -210,37 +278,43 @@ export default function CharacterDetailScreen({
           </div>
         </div>
 
-        {/* 하단 버튼 */}
-        <div
-          className="absolute bottom-0 left-0 right-0"
+      </div>
+
+      {/* Action Area - 스티키 하단 버튼 */}
+      <div
+        className="fixed bottom-0 left-0 right-0 z-20"
+        style={{
+          padding: '20px',
+          paddingBottom: 'calc(20px + env(safe-area-inset-bottom, 14px))',
+          maxWidth: '430px',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        }}
+      >
+        {/* Main Action Button */}
+        <button
+          onClick={onStartChat}
+          className="w-full flex items-center justify-center transition-all duration-300"
           style={{
-            padding: '20px 5.33%',
-            paddingBottom: '54px',
-            background: 'linear-gradient(to top, rgba(0,0,0,1) 70%, transparent 100%)',
+            padding: '12px 28px',
+            height: '48px',
+            borderRadius: '12px',
+            backgroundColor: '#6BE016',
           }}
         >
-          <button
-            onClick={onStartChat}
-            className="w-full flex items-center justify-center transition-all duration-300"
+          <span
             style={{
-              padding: '16px 28px',
-              borderRadius: '12px',
-              backgroundColor: '#58CF04',
+              fontFamily: "'Pretendard JP', sans-serif",
+              fontWeight: 600,
+              fontSize: '16px',
+              lineHeight: 1.5,
+              letterSpacing: '0.0057em',
+              color: '#171719',
             }}
           >
-            <span
-              className="font-semibold"
-              style={{
-                fontSize: '16px',
-                lineHeight: 1.5,
-                letterSpacing: '0.09px',
-                color: '#000000',
-              }}
-            >
-              더 깊게 대화 시작하기
-            </span>
-          </button>
-        </div>
+            더 깊게 대화 시작하기
+          </span>
+        </button>
       </div>
     </div>
   );

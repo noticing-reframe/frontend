@@ -46,7 +46,7 @@ export default function ChatScreen({
       {/* 배경 이미지 + 90% 검정 오버레이 */}
       <div className="absolute inset-0">
         <img
-          src="/images/bg-stars.png"
+          src="/images/background/2-Splash02.svg"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -55,20 +55,30 @@ export default function ChatScreen({
 
       {/* 고정 헤더 영역 */}
       <div className="relative z-20 flex-shrink-0">
-        {/* Status Safe Area - 44px */}
-        <div className="w-full" style={{ height: '44px' }} />
-
-        {/* 뒤로가기 버튼 */}
-        <div style={{ padding: '10px 16px' }}>
+        {/* Status Safe Area - 44px (CharacterSelectScreen과 동일) */}
+        <div
+          className="relative w-full pt-[env(safe-area-inset-top)]"
+          style={{ height: '44px' }}
+        >
+          {/* Back Button */}
           <button
             onClick={onBack}
-            className="flex items-center justify-center"
-            style={{ width: '32px', height: '32px' }}
+            className="absolute flex items-center justify-center"
+            style={{
+              left: '12px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              width: '40px',
+              height: '40px',
+            }}
           >
             <img
               src="/images/icons/chevron-left.svg"
               alt="뒤로가기"
-              style={{ width: '32px', height: '32px' }}
+              style={{
+                width: '40px',
+                height: '40px',
+              }}
             />
           </button>
         </div>

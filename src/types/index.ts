@@ -18,6 +18,7 @@ export interface Character {
   reason: string;
   conversation_hint: string;
   profile_image: number;
+  tags: string[];
 }
 
 // 채팅 메시지 인터페이스

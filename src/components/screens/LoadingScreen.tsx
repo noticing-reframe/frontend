@@ -10,10 +10,10 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
   const [glowVisible, setGlowVisible] = useState(false);
 
   useEffect(() => {
-    // 빛나는 애니메이션 - 1초 간격으로 반복
+    // 빛나는 애니메이션 - 1.6초 간격으로 반복
     const glowInterval = setInterval(() => {
       setGlowVisible((prev) => !prev);
-    }, 1000);
+    }, 1600);
 
     return () => {
       clearInterval(glowInterval);

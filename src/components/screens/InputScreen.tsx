@@ -26,13 +26,13 @@ export default function InputScreen({ onSubmit }: InputScreenProps) {
         className="absolute top-1/2 left-0 w-full h-auto -translate-y-1/2"
       />
 
-      {/* Top Navigation - Status Safe Area (44px) */}
-      <div className="relative z-10 h-11 w-full" />
+      {/* Status Safe Area - 44px (LoadingScreen과 동일) */}
+      <div className="relative z-10 w-full" style={{ height: '44px' }} />
 
-      {/* 메인 콘텐츠 - 5.33% 좌우 패딩 (375px 기준 20px) */}
+      {/* 메인 콘텐츠 - padding-top: 10px (LoadingScreen과 동일한 타이틀 위치) */}
       <div
         className="relative z-10 flex flex-col gap-5"
-        style={{ padding: '44px 5.33% 0 5.33%' }}
+        style={{ padding: '10px 20px 0 20px' }}
       >
         {/* 타이틀 영역 */}
         <div className="flex flex-col gap-2">
@@ -55,7 +55,7 @@ export default function InputScreen({ onSubmit }: InputScreenProps) {
               letterSpacing: '0.09px',
             }}
           >
-            {`고민을 말해주면 가장 잘 조언을 해줄수 있는 \n경험을 한 '요정'을 매칭해드릴게요 `}
+            {`고민을 말해주면 가장 잘 조언을 해줄수 있는 \n경험을 한 '요정'이 모일 거예요`}
           </p>
         </div>
 
@@ -135,7 +135,7 @@ export default function InputScreen({ onSubmit }: InputScreenProps) {
 
       {/* Action Area - 하단 고정 */}
       <div className="absolute bottom-0 left-0 right-0 z-10">
-        <div className="flex flex-col w-full" style={{ padding: '20px 5.33%' }}>
+        <div className="flex flex-col w-full" style={{ padding: '20px 20px' }}>
           <button
             onClick={handleSubmit}
             disabled={!concern.trim()}
