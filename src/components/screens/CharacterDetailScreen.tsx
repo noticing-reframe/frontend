@@ -109,7 +109,7 @@ export default function CharacterDetailScreen({
                 margin: 0,
               }}
             >
-              {character.character_tagline}
+              {character.character_tagline} 요정
             </p>
 
             {/* Badges - flex wrap for multiple tags */}
@@ -218,7 +218,15 @@ export default function CharacterDetailScreen({
                 margin: 0,
               }}
             >
-              {character.conversation_hint}
+              {(Array.isArray(character.conversation_hint)
+                ? character.conversation_hint
+                : [character.conversation_hint]
+              ).map((line, i) => (
+                <span key={i}>
+                  {i > 0 && <br />}
+                  {line}
+                </span>
+              ))}
             </p>
           </div>
 
@@ -272,7 +280,12 @@ export default function CharacterDetailScreen({
                   margin: 0,
                 }}
               >
-                {character.character_background}
+                {character.character_background.split('\n').map((line, i) => (
+                  <span key={i}>
+                    {i > 0 && <br />}
+                    {line}
+                  </span>
+                ))}
               </p>
             </div>
           </div>

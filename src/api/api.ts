@@ -12,7 +12,7 @@ export interface CharacterMatch {
   character_tagline: string;
   character_background: string;
   reason: string;
-  conversation_hint: string;
+  conversation_hint: string[];
   profile_image: number;
 }
 
