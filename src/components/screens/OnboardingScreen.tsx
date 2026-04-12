@@ -43,7 +43,7 @@ export default function OnboardingScreen({ step }: OnboardingScreenProps) {
 
     // 타이핑 완료 후 잠시 대기 + 페이드아웃
     const typingDuration = fullText.length * 120;
-    const fadeOut = setTimeout(() => setIsVisible(false), typingDuration + 600);
+    const fadeOut = setTimeout(() => setIsVisible(false), typingDuration + 300);
 
     return () => {
       clearInterval(typingInterval);
