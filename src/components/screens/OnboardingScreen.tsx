@@ -17,9 +17,9 @@ export default function OnboardingScreen({ step }: OnboardingScreenProps) {
   const [displayedText, setDisplayedText] = useState('');
   const [isVisible, setIsVisible] = useState(false);
 
-  // 배경 전환 시작 (2.5초 대기 후, 2초 동안 전환)
+  // 배경 전환 시작 (2초 대기 후, 2초 동안 전환)
   useEffect(() => {
-    const timer = setTimeout(() => setBgTransition(true), 2500);
+    const timer = setTimeout(() => setBgTransition(true), 2000);
     return () => clearTimeout(timer);
   }, []);
 
