@@ -7,11 +7,11 @@ interface InputScreenProps {
 }
 
 const quickConcerns = [
-  '요즘 너무 무기력하고 의욕이 없어요',
-  '진로가 고민돼요',
-  '인간관계가 힘들어요',
-  '자존감이 낮아서 힘들어요',
-  '번아웃이 온 것 같아요',
+  '부모님이 제 진로를 반대하세요',
+  '꿈이 없어요',
+  '공부를 왜 해야 할까요',
+  '이번 시험 망치면 어떡하죠',
+  '아직 전공을 정하지 못했어요',
 ];
 
 export default function InputScreen({ onSubmit }: InputScreenProps) {
