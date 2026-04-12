@@ -1,14 +1,37 @@
-# Frontend - Claude Code 협업 가이드
+# Reframe Frontend - AI 협업 개발 가이드
 
 ## 프로젝트 개요
-- **프로젝트명**: Reframe (Fairy)
-- **역할**: 실제 인물 기반 가상 캐릭터와 1인칭 대화하는 AI 챗봇 서비스의 프론트엔드
+
+- **프로젝트명**: Reframe (리프레임)
+- **핵심 컨셉**: 실제 인물 기반 가상 캐릭터("요정")와 1인칭 대화를 통해 사용자의 관점을 확장하는 AI 챗봇 서비스
 - **기술 스택**: Next.js 15, TypeScript, Tailwind CSS v4
 - **아키텍처**: App Router
 
-## 핵심 비즈니스 컨셉
-- **실제 인물 기반 가상 캐릭터**: 실제 인물의 핵심 속성·철학·경험 패턴을 학습한 가상 캐릭터 ("요정")
-- **1인칭 대화**: 캐릭터가 자기 이야기를 1인칭으로 대화 ("나는 그때…", "내가 제일 무서웠던 건…")
+---
+
+## AI 활용 전략
+
+### 사용 도구
+
+| 용도 | 도구 | 설명 |
+|------|------|------|
+| 개발 보조 | Claude Code (CLI) | 컴포넌트 생성, 스타일링, 디버깅 |
+| 에디터 | Cursor | AI 기반 코드 편집 |
+| 디자인 연동 | Figma MCP | Figma → React 코드 변환 |
+
+### AI 협업으로 구현된 기능
+
+1. **Figma → 코드 변환**
+   - Figma MCP를 통해 디자인 스펙 자동 추출
+   - 색상, 타이포그래피, 간격 등 정확한 수치 반영
+
+2. **반응형 디자인 최적화**
+   - `clamp()` 함수 기반 유동적 크기 조절
+   - iPhone 12 mini (375x667) ~ 대형 기기 대응
+
+3. **컴포넌트 모듈화**
+   - 화면별 컴포넌트 분리 (screens/)
+   - 재사용 가능한 UI 패턴 추출
 
 ---
 
@@ -19,30 +42,35 @@
 - **URL**: `https://www.figma.com/design/RDl4dwDwGfLHandzrfAzhR/Fairy`
 
 ### 주요 화면 Node ID
+
 | 화면 | Figma 이름 | Node ID |
 |------|-----------|---------|
+| 온보딩 | Splash | `1:100` |
+| 고민 입력 | Input | `5:1234` |
+| 로딩 | Loading | `7:Loading` |
 | 캐릭터 선택 | 6-Select_Character | `17:17751` |
 | 캐릭터 상세 | 7-Character_Detail | `30:1906` |
 | 채팅 | 8-Chat02 | `7:2502` |
 
 ### Figma MCP 활용법
-```
+
+```bash
 # 디자인 컨텍스트 가져오기
-피그마 [화면이름] 보고 그대로 만들어줘
-https://www.figma.com/design/RDl4dwDwGfLHandzrfAzhR/Fairy?node-id=[NODE_ID]
+"피그마 [화면이름] 보고 그대로 만들어줘"
 
 # 에셋 다운로드
-피그마에서 이미지/아이콘 다 다운받아서 public에 넣어줘
+"피그마에서 이미지/아이콘 다 다운받아서 public에 넣어줘"
 
 # 정확한 스펙 확인
-피그마 보고 글자 크기랑 색상 확인해서 똑같이 해줘
+"피그마 보고 글자 크기랑 색상 확인해서 똑같이 해줘"
 ```
 
 ---
 
 ## 디자인 시스템
 
-### 색상
+### 색상 팔레트
+
 ```css
 /* Primary */
 --color-primary: #58CF04;        /* 라임 그린 */
@@ -51,57 +79,37 @@ https://www.figma.com/design/RDl4dwDwGfLHandzrfAzhR/Fairy?node-id=[NODE_ID]
 
 /* Background */
 --color-bg-dark: #000000;
---color-bg-overlay: rgba(0, 0, 0, 0.9);    /* 90% 검정 오버레이 */
---color-bg-card: rgba(255, 255, 255, 0.08); /* 카드/버블 배경 */
---color-bg-blur: rgba(33, 34, 37, 0.61);    /* backdrop-blur 배경 */
+--color-bg-overlay: rgba(0, 0, 0, 0.9);
+--color-bg-card: rgba(255, 255, 255, 0.08);
+--color-bg-blur: rgba(33, 34, 37, 0.61);
 
 /* Text */
 --color-text-primary: #f7f7f8;
 --color-text-secondary: rgba(194, 196, 200, 0.88);
 --color-text-muted: rgba(174, 176, 182, 0.61);
-
-/* Divider */
---color-divider: rgba(112, 115, 124, 0.32);
 ```
 
-### 타이포그래피
-```css
-/* 제목 */
-Title: 32px Bold, letter-spacing: -0.8px, line-height: 1.375
+### 타이포그래피 (반응형)
 
-/* 섹션 제목 */
-Heading: 20px SemiBold, letter-spacing: -0.24px, line-height: 1.4
+```css
+/* 제목 - 반응형 */
+Title: clamp(24px, 8vw, 32px) Bold
+
+/* 부제목 */
+Subtitle: clamp(14px, 4vw, 16px) Regular
 
 /* 본문 */
-Body: 16px Regular, letter-spacing: 0.09px, line-height: 1.5
-Body Reading: 16px Regular, letter-spacing: 0.09px, line-height: 1.625
-
-/* 캡션 */
-Caption: 12px Regular, letter-spacing: 0.3px, line-height: 1.334
+Body: 16px Regular, line-height: 1.625
 ```
 
-### 공통 패턴
+### 반응형 전략
 
-#### 배경 오버레이
 ```tsx
-<div className="absolute inset-0">
-  <img src="/images/bg-stars.png" className="absolute inset-0 w-full h-full object-cover" />
-  <div className="absolute inset-0 bg-black/90" />
-</div>
+// clamp() 기반 유동적 크기
+fontSize: 'clamp(24px, 8vw, 32px)'  // min, preferred, max
+gap: 'clamp(12px, 3vw, 20px)'
+height: 'clamp(150px, 28vh, 190px)'
 ```
-
-#### Backdrop Blur 카드
-```tsx
-style={{
-  backgroundColor: 'rgba(255, 255, 255, 0.08)',
-  backdropFilter: 'blur(32px)',
-  WebkitBackdropFilter: 'blur(32px)',
-}}
-```
-
-#### Safe Area
-- **Status Bar**: 44px (상단)
-- **Home Indicator**: 34px (하단, 통상 54px 패딩 사용)
 
 ---
 
@@ -109,49 +117,94 @@ style={{
 
 ```
 src/
-├── app/                    # Next.js App Router
+├── app/                      # Next.js App Router
 │   ├── layout.tsx
-│   ├── page.tsx
-│   ├── globals.css
-│   ├── characters/         # 캐릭터 선택/상세
-│   │   ├── page.tsx
-│   │   └── [id]/page.tsx
-│   └── chat/[characterId]/ # 채팅
-│       └── page.tsx
+│   ├── page.tsx              # 메인 앱 (상태 관리)
+│   ├── onboarding/           # 온보딩 페이지
+│   └── globals.css
 ├── components/
-│   └── screens/
+│   └── screens/              # 화면별 컴포넌트
+│       ├── OnboardingScreen.tsx
+│       ├── InputScreen.tsx
+│       ├── LoadingScreen.tsx
 │       ├── CharacterSelectScreen.tsx
 │       ├── CharacterDetailScreen.tsx
 │       └── ChatScreen.tsx
-├── data/
-│   └── mockCharacters.ts   # 캐릭터 목 데이터
 ├── types/
 │   └── index.ts
 └── api/
-    └── client.ts
+    └── client.ts             # 백엔드 API 클라이언트
 ```
 
 ---
 
-## 에셋 구조
+## 화면 플로우
 
 ```
-public/images/
-├── bg-stars.png              # 별 배경 이미지
-├── character-fairy.png       # 캐릭터 이미지 1
-├── character-thumbnail.png   # 캐릭터 이미지 2
-├── loading-hand.png          # 로딩 화면 손 이미지
-└── icons/
-    ├── chevron-left.svg      # 뒤로가기
-    ├── quote.svg             # 인용 부호 (회전해서 양쪽 사용)
-    ├── circle-exclamation.svg # 안내 아이콘
-    ├── send.svg              # 전송 버튼
-    └── user.svg              # 유저 프로필
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│  Onboarding │ ──▶ │   Input     │ ──▶ │   Loading   │
+│   (타이핑)   │     │  (고민 입력) │     │  (매칭 중)   │
+└─────────────┘     └─────────────┘     └─────────────┘
+                                              │
+       ┌──────────────────────────────────────┘
+       ▼
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│  Character  │ ──▶ │  Character  │ ──▶ │    Chat     │
+│   Select    │     │   Detail    │     │  (SSE 스트림) │
+└─────────────┘     └─────────────┘     └─────────────┘
+       │                                       │
+       └──────────── ◀ 뒤로가기 ◀ ─────────────┘
 ```
 
 ---
 
-## 주요 명령어
+## 주요 기능 구현
+
+### 1. 타이핑 애니메이션 (온보딩)
+
+```tsx
+useEffect(() => {
+  const typingInterval = setInterval(() => {
+    if (currentIndex < fullText.length) {
+      setDisplayedText(fullText.slice(0, currentIndex + 1));
+      currentIndex++;
+    }
+  }, 120); // 120ms per character
+}, [step]);
+```
+
+### 2. SSE 스트리밍 채팅
+
+```tsx
+const response = await fetch('/api/chat', {
+  method: 'POST',
+  body: JSON.stringify({ message }),
+});
+
+const reader = response.body.getReader();
+while (true) {
+  const { done, value } = await reader.read();
+  if (done) break;
+  // 청크 단위 메시지 업데이트
+  setMessages(prev => [...prev, parseChunk(value)]);
+}
+```
+
+### 3. 반응형 디자인
+
+```tsx
+// iPhone 12 mini ~ 대형 기기 대응
+style={{
+  fontSize: 'clamp(24px, 8vw, 32px)',
+  gap: 'clamp(16px, 6vw, 24px)',
+  padding: 'clamp(12px, 5vw, 20px)',
+}}
+```
+
+---
+
+## 개발 명령어
+
 ```bash
 npm run dev      # 개발 서버 (http://localhost:3000)
 npm run build    # 프로덕션 빌드
@@ -160,44 +213,25 @@ npm run lint     # ESLint 실행
 
 ---
 
-## 화면 플로우
-```
-Splash → Input → Loading → Character Select → Character Detail → Chat
-                              ↑                    ↓
-                              ←←←←←←←←←←←←←←←←←←←←←
-```
+## 배포
+
+- **플랫폼**: Vercel
+- **배포 방식**: Git Push → 자동 배포
+- **브랜치**: main
 
 ---
 
-## 개발 상태
-- [x] Next.js 15 + App Router 설정
-- [x] Figma MCP 연동
-- [x] CharacterSelectScreen (6-Select_Character)
-- [x] CharacterDetailScreen (7-Character_Detail)
-- [x] ChatScreen (8-Chat02)
-- [x] 에셋 다운로드 (bg-stars, icons 등)
-- [ ] API 연동
-- [ ] 스트리밍 응답 처리
-
----
-
-## 문서 구조
+## AI 협업 문서 구조
 
 ```
 docs/
-├── screens/              # 화면별 스펙 문서
-│   ├── CharacterSelectScreen.md
-│   ├── CharacterDetailScreen.md
-│   └── ChatScreen.md
-├── ai-sessions/          # AI 협업 세션 기록
-├── prompts/              # 재사용 가능한 프롬프트
-└── decisions/            # 기술 결정 (ADR)
+├── ai-sessions/      # AI와의 세션별 대화 기록
+├── api/              # API 연동 문서
+├── decisions/        # 기술 결정 기록 (ADR)
+├── features/         # 기능 명세서
+├── flow/             # 화면 플로우 문서
+├── prompts/          # AI 프롬프트 기록
+└── screens/          # 화면별 스펙 문서
 ```
 
----
-
-## 코딩 컨벤션
-- **컴포넌트**: PascalCase (`ChatScreen.tsx`)
-- **스타일**: inline style 객체 사용 (Figma 스펙 정확히 반영)
-- **색상**: Figma 변수명 그대로 사용 (`rgba(...)` 형식)
-- **단위**: px 단위 사용 (Figma와 1:1 매칭)
+**모든 주요 UI/UX 결정은 Figma MCP와 Claude Code를 통해 이루어졌습니다.**
