@@ -298,7 +298,7 @@ export default function CharacterDetailScreen({
         className="fixed bottom-0 left-0 right-0 z-20"
         style={{
           padding: '20px',
-          paddingBottom: 'calc(20px + env(safe-area-inset-bottom, 14px))',
+          paddingBottom: '40px',
           maxWidth: '430px',
           marginLeft: 'auto',
           marginRight: 'auto',
