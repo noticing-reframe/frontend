@@ -55,7 +55,7 @@ export default function InputScreen({ onSubmit }: InputScreenProps) {
               letterSpacing: '0.09px',
             }}
           >
-            {`고민을 말해주면 가장 잘 조언을 해줄수 있는 \n경험을 한 '요정'이 모일 거예요`}
+            {`고민을 말해주면 가장 잘 조언을 해줄 수 있는 \n경험을 한 '요정'이 모일 거예요`}
           </p>
         </div>
 
