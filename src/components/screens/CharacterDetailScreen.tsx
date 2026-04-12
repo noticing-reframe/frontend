@@ -206,7 +206,7 @@ export default function CharacterDetailScreen({
               />
             </div>
 
-            {/* 대화 힌트 - Body 1/Reading Regular: 16px */}
+            {/* 대화 힌트 - Body 1/Reading Regular: 16px, Neutral */}
             <p
               style={{
                 fontFamily: "'Pretendard JP', sans-serif",
@@ -214,7 +214,7 @@ export default function CharacterDetailScreen({
                 fontSize: '16px',
                 lineHeight: 1.625,
                 letterSpacing: '0.0057em',
-                color: '#F7F7F8',
+                color: 'rgba(194, 196, 200, 0.88)',
                 margin: 0,
               }}
             >
