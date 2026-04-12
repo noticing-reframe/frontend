@@ -289,6 +289,7 @@ export default function CharacterDetailScreen({
           maxWidth: '430px',
           marginLeft: 'auto',
           marginRight: 'auto',
+          backgroundColor: '#000000',
         }}
       >
         {/* Main Action Button */}
