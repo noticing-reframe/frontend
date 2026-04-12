@@ -161,7 +161,7 @@ export default function ChatScreen({
                       style={{
                         padding: '12px 20px',
                         borderRadius: '0 12px 12px 12px',
-                        backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                        backgroundColor: 'rgba(33, 34, 37, 0.61)',
                         backdropFilter: 'blur(32px)',
                         WebkitBackdropFilter: 'blur(32px)',
                       }}
@@ -219,7 +219,7 @@ export default function ChatScreen({
                       style={{
                         padding: '12px 20px',
                         borderRadius: '12px 0 12px 12px',
-                        backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                        backgroundColor: 'rgba(33, 34, 37, 0.61)',
                         backdropFilter: 'blur(32px)',
                         WebkitBackdropFilter: 'blur(32px)',
                       }}
