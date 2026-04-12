@@ -6,9 +6,16 @@ interface OnboardingScreenProps {
   step: 1 | 2 | 3 | 4;
 }
 
+const stepTexts: Record<2 | 3 | 4, string> = {
+  2: '혹시\n길을 잃어버렸나요?',
+  3: '걱정하지말아요',
+  4: '요정들이\n도와줄게요',
+};
+
 export default function OnboardingScreen({ step }: OnboardingScreenProps) {
-  const [isVisible, setIsVisible] = useState(false);
   const [bgTransition, setBgTransition] = useState(false);
+  const [displayedText, setDisplayedText] = useState('');
+  const [isVisible, setIsVisible] = useState(false);
 
   // 배경 전환 시작 (0.5초 대기 후, 2초 동안 전환)
   useEffect(() => {
@@ -16,14 +23,30 @@ export default function OnboardingScreen({ step }: OnboardingScreenProps) {
     return () => clearTimeout(timer);
   }, []);
 
-  // 텍스트 페이드인/아웃 (1.8초 간격에 맞춤)
+  // 타이핑 효과
   useEffect(() => {
-    setIsVisible(false);
-    const fadeIn = setTimeout(() => setIsVisible(true), 50);
-    const fadeOut = setTimeout(() => setIsVisible(false), 1400);
+    if (step < 2) return;
+
+    const fullText = stepTexts[step as 2 | 3 | 4];
+    setDisplayedText('');
+    setIsVisible(true);
+
+    let currentIndex = 0;
+    const typingInterval = setInterval(() => {
+      if (currentIndex < fullText.length) {
+        setDisplayedText(fullText.slice(0, currentIndex + 1));
+        currentIndex++;
+      } else {
+        clearInterval(typingInterval);
+      }
+    }, 120); // 120ms per character (천천히)
+
+    // 타이핑 완료 후 잠시 대기 + 페이드아웃
+    const typingDuration = fullText.length * 120;
+    const fadeOut = setTimeout(() => setIsVisible(false), typingDuration + 600);
 
     return () => {
-      clearTimeout(fadeIn);
+      clearInterval(typingInterval);
       clearTimeout(fadeOut);
     };
   }, [step]);
@@ -61,9 +84,7 @@ export default function OnboardingScreen({ step }: OnboardingScreenProps) {
               opacity: isVisible ? 1 : 0,
             }}
           >
-            {step === 2 && '혹시\n길을 잃어버렸나요?'}
-            {step === 3 && '걱정하지말아요'}
-            {step === 4 && '요정들이\n도와줄게요'}
+            {displayedText}
           </h1>
         </div>
       )}
