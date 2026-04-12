@@ -187,6 +187,7 @@ export default function ChatScreen({
                             lineHeight: 1.571,
                             letterSpacing: '0.2px',
                             color: '#f7f7f8',
+                            whiteSpace: 'pre-wrap',
                           }}
                         >
                           {message.content}
