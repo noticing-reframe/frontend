@@ -6,6 +6,14 @@ interface InputScreenProps {
   onSubmit: (concern: string) => void;
 }
 
+const quickConcerns = [
+  '요즘 너무 무기력하고 의욕이 없어요',
+  '진로가 고민돼요',
+  '인간관계가 힘들어요',
+  '자존감이 낮아서 힘들어요',
+  '번아웃이 온 것 같아요',
+];
+
 export default function InputScreen({ onSubmit }: InputScreenProps) {
   const [concern, setConcern] = useState('');
   const [isFocused, setIsFocused] = useState(false);
@@ -31,15 +39,15 @@ export default function InputScreen({ onSubmit }: InputScreenProps) {
 
       {/* 메인 콘텐츠 - padding-top: 10px (LoadingScreen과 동일한 타이틀 위치) */}
       <div
-        className="relative z-10 flex flex-col gap-5"
-        style={{ padding: '10px 20px 0 20px' }}
+        className="relative z-10 flex flex-col"
+        style={{ padding: '10px 20px 120px 20px', gap: 'clamp(12px, 3vw, 20px)' }}
       >
         {/* 타이틀 영역 */}
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col" style={{ gap: 'clamp(4px, 1vw, 8px)' }}>
           <div
             className="font-bold text-white"
             style={{
-              fontSize: '32px',
+              fontSize: 'clamp(24px, 8vw, 32px)',
               letterSpacing: '-0.8px',
               lineHeight: 1.375,
             }}
@@ -50,7 +58,7 @@ export default function InputScreen({ onSubmit }: InputScreenProps) {
           <p
             className="text-white/60 whitespace-pre-wrap m-0"
             style={{
-              fontSize: '16px',
+              fontSize: 'clamp(14px, 4vw, 16px)',
               lineHeight: 1.625,
               letterSpacing: '0.09px',
             }}
@@ -59,8 +67,8 @@ export default function InputScreen({ onSubmit }: InputScreenProps) {
           </p>
         </div>
 
-        {/* Textarea 영역 - 190px 높이 */}
-        <div className="relative flex flex-col w-full" style={{ height: '190px' }}>
+        {/* Textarea 영역 - 반응형 높이 */}
+        <div className="relative flex flex-col w-full" style={{ height: 'clamp(150px, 28vh, 190px)' }}>
           {/* Background with blur */}
           <div
             className="absolute inset-0"
@@ -130,6 +138,39 @@ export default function InputScreen({ onSubmit }: InputScreenProps) {
               borderRadius: '12px',
             }}
           />
+        </div>
+
+        {/* 선택형 버튼 - Frame 44 */}
+        <div
+          className="flex flex-wrap"
+          style={{ gap: '10px' }}
+        >
+          {quickConcerns.map((text, index) => (
+            <button
+              key={index}
+              onClick={() => setConcern(text)}
+              className="flex items-center justify-center transition-all active:opacity-75"
+              style={{
+                padding: '7px 14px',
+                border: '1px solid rgba(112, 115, 124, 0.28)',
+                borderRadius: '8px',
+                backgroundColor: 'transparent',
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "'Pretendard JP', sans-serif",
+                  fontWeight: 500,
+                  fontSize: '13px',
+                  lineHeight: 1.385,
+                  letterSpacing: '0.0194em',
+                  color: '#F7F7F8',
+                }}
+              >
+                {text}
+              </span>
+            </button>
+          ))}
         </div>
       </div>
 

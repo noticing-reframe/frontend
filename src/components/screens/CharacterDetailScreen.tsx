@@ -58,7 +58,7 @@ export default function CharacterDetailScreen({
         {/* 스크롤 영역 - Frame 22: padding: 20px, gap: 24px */}
         <div
           className="flex-1 overflow-y-auto scrollbar-hide flex flex-col"
-          style={{ padding: '20px', gap: '24px', paddingBottom: '160px' }}
+          style={{ padding: '20px', gap: 'clamp(16px, 6vw, 24px)', paddingBottom: '130px' }}
         >
           {/* 프로필 이미지 - 335px x 335px */}
           <div className="animate-fade-in">
@@ -82,12 +82,12 @@ export default function CharacterDetailScreen({
             className="animate-fade-in flex flex-col"
             style={{ gap: '8px' }}
           >
-            {/* 이름 - Title 1/Bold: 32px */}
+            {/* 이름 - Title 1/Bold: 반응형 */}
             <h1
               style={{
                 fontFamily: "'Pretendard JP', sans-serif",
                 fontWeight: 700,
-                fontSize: '32px',
+                fontSize: 'clamp(24px, 8vw, 32px)',
                 lineHeight: 1.375,
                 letterSpacing: '-0.0253em',
                 color: '#FFFFFF',
@@ -97,12 +97,12 @@ export default function CharacterDetailScreen({
               {character.character_name}
             </h1>
 
-            {/* 짧은 설명 - Headline 1/Regular: 18px */}
+            {/* 짧은 설명 - Headline 1/Regular: 반응형 */}
             <p
               style={{
                 fontFamily: "'Pretendard JP', sans-serif",
                 fontWeight: 400,
-                fontSize: '18px',
+                fontSize: 'clamp(15px, 4.5vw, 18px)',
                 lineHeight: 1.445,
                 letterSpacing: '-0.0002em',
                 color: '#F7F7F8',
@@ -170,7 +170,7 @@ export default function CharacterDetailScreen({
               style={{
                 fontFamily: "'Pretendard JP', sans-serif",
                 fontWeight: 600,
-                fontSize: '20px',
+                fontSize: 'clamp(17px, 5vw, 20px)',
                 lineHeight: 1.4,
                 letterSpacing: '-0.012em',
                 color: '#F7F7F8',
@@ -248,7 +248,7 @@ export default function CharacterDetailScreen({
               style={{
                 fontFamily: "'Pretendard JP', sans-serif",
                 fontWeight: 600,
-                fontSize: '20px',
+                fontSize: 'clamp(17px, 5vw, 20px)',
                 lineHeight: 1.4,
                 letterSpacing: '-0.012em',
                 color: '#F7F7F8',

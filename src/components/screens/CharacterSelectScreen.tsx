@@ -56,7 +56,7 @@ export default function CharacterSelectScreen({
       {/* Frame 30 - padding: 10px 20px 20px 20px (LoadingScreen과 동일한 타이틀 위치) */}
       <div
         className="relative z-10 flex flex-col items-start flex-1 w-full overflow-hidden"
-        style={{ padding: '10px 20px 20px 20px', gap: '40px' }}
+        style={{ padding: '10px 20px 20px 20px', gap: 'clamp(24px, 10vw, 40px)' }}
       >
         {/* 타이틀 - Title 1/Bold: 32px, line-height: 137.5%, letter-spacing: -0.0253em */}
         <h1

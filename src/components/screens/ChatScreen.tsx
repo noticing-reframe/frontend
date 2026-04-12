@@ -267,7 +267,7 @@ export default function ChatScreen({
       {/* 입력 영역 - 하단 고정 */}
       <div
         className="relative z-20 flex-shrink-0"
-        style={{ padding: '20px', paddingBottom: '54px' }}
+        style={{ padding: 'clamp(12px, 5vw, 20px)', paddingBottom: '44px' }}
       >
         <div className="flex gap-[8px] items-center">
           {/* 텍스트 입력 필드 */}

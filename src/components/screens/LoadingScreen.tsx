@@ -48,7 +48,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
         <h1
           className="font-bold text-white m-0"
           style={{
-            fontSize: '32px',
+            fontSize: 'clamp(24px, 8vw, 32px)',
             lineHeight: 1.375,
             letterSpacing: '-0.8px',
           }}

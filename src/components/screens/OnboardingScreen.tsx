@@ -78,7 +78,7 @@ export default function OnboardingScreen({ step }: OnboardingScreenProps) {
           <h1
             className="text-white text-center whitespace-pre font-bold transition-opacity duration-300"
             style={{
-              fontSize: '32px',
+              fontSize: 'clamp(24px, 8vw, 32px)',
               lineHeight: 1.375,
               letterSpacing: '-0.8px',
               opacity: isVisible ? 1 : 0,
