@@ -184,6 +184,7 @@ export default function InputScreen({ onSubmit }: InputScreenProps) {
             style={{
               backgroundColor: concern.trim() ? '#58CF04' : '#2E2F33',
               padding: '12px 28px',
+              height: '48px',
               borderRadius: '12px',
             }}
           >
