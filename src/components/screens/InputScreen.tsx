@@ -200,8 +200,8 @@ export default function InputScreen({ onSubmit }: InputScreenProps) {
             </span>
           </button>
         </div>
-        {/* Bottom Safe Area - 34px */}
-        <div className="w-full" style={{ height: '34px' }} />
+        {/* Bottom Safe Area - 48px (34 + 14px 추가) */}
+        <div className="w-full" style={{ height: '48px' }} />
       </div>
     </div>
   );
